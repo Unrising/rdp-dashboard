@@ -1,13 +1,16 @@
+require('doteenv').config();
+
 const express = require("express");
+const mongoose = require("mangoose");
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
+mangoose.connect(process.env.MANGO_URI, {
+    useNewUrlParser:true,
+    useUnifiedTopology:true,
+}).then(() => console.log('MangoDB Connected'))
+  .catch(err => console.log(err));
 
-app.get('/',(req,res) => {
-    res.send('Welcome to the RDP Dashboard');
-});
-
-const PORT = 8080;
 
 app.listen(PORT,() => console.log(`Server is listenning to port : ${PORT}`));
 
